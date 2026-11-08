@@ -22,6 +22,9 @@ p { color: #9C9CA3; }
 a { display: inline-block; margin-top: 20px; text-decoration: none; font: 700 15px/1 "Be Vietnam Pro", system-ui, sans-serif; padding: 14px 20px; border-radius: 10px; background: #F5A524; color: #0F0F10; }
 a:hover { background: #FFB84D; }
 a:focus-visible { outline: 2px solid #F5A524; outline-offset: 3px; }
+nav.legal { margin-top: 28px; display: flex; justify-content: center; gap: 8px 16px; flex-wrap: wrap; font-size: 13px; }
+nav.legal a { margin: 0; padding: 4px 0; border-radius: 0; background: none; color: #9C9CA3; font: 400 13px/1.4 "Be Vietnam Pro", system-ui, sans-serif; text-decoration: underline; text-underline-offset: 3px; }
+nav.legal a:hover { background: none; color: #F3F3F3; }
 </style>
 </head>
 <body>
@@ -31,6 +34,11 @@ a:focus-visible { outline: 2px solid #F5A524; outline-offset: 3px; }
   <h1>Page not found</h1>
   <p>The page you are looking for isn't here.</p>
   <a href="/">Back to SilkMoon Media</a>
+  <nav class="legal" aria-label="Legal">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="/delete-account.html">Delete your account</a>
+  </nav>
 </main>
 </body>
 </html>

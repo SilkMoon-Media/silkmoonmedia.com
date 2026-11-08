@@ -175,6 +175,7 @@ section > .wrap { padding-block: 88px; }
 
 footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 28px 40px; color: var(--grey); font-size: 13px; }
 footer a { color: var(--grey); text-underline-offset: 3px; }
+footer nav { display: flex; gap: 16px; flex-wrap: wrap; }
 
 @media (max-width: 960px) {
   .services, .ai .grid, .ways { grid-template-columns: minmax(0, 1fr); }
@@ -408,6 +409,11 @@ footer a { color: var(--grey); text-underline-offset: 3px; }
   <div class="wrap">
     <span>© <span id="year">2026</span> SilkMoon Media LLC. All rights reserved.</span>
     <span>Our game: Lunar Party Games</span>
+    <nav aria-label="Legal">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="delete-account.html">Delete your account</a>
+    </nav>
   </div>
 </footer>
 
