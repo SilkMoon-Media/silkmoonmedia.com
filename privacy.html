@@ -106,12 +106,24 @@ footer a[aria-current="page"] { color: var(--text); }
   .toc { position: static; max-height: none; overflow: visible; }
 }
 @media (max-width: 860px) {
-  nav.main a:not(.btn) { display: none; }
+  nav.main { gap: 4px 18px; }
+}
+@media (max-width: 600px) {
+  /* The menu takes its own full-width row under the logo */
+  nav.main { width: 100%; justify-content: space-between; gap: 0 10px; font-size: 13px; margin-top: -8px; }
+  nav.main a { padding-block: 8px; }
+}
+@media (max-width: 400px) {
+  nav.main { gap: 0 6px; font-size: 12.5px; }
+}
+@media (max-width: 350px) {
+  nav.main { gap: 0 4px; font-size: 11.5px; }
 }
 @media (max-width: 520px) {
   .doc-head .wrap { padding-block: 40px 32px; }
   .legal { font-size: 16px; }
 }
+@media (max-width: 660px) { .legal h2, .legal h3 { scroll-margin-top: 124px; } }
 </style>
 </head>
 <body>
@@ -130,11 +142,13 @@ footer a[aria-current="page"] { color: var(--text); }
       <span><b>SILKMOON</b><small>MEDIA</small></span>
     </a>
     <nav class="main" aria-label="Main">
-      <a href="index.html#services">Services</a>
+      <a href="index.html#games">Games</a>
+      <a href="index.html#apps">Apps</a>
+      <a href="index.html#media">Media</a>
+      <a href="index.html#marketing">Marketing</a>
       <a href="index.html#ai">AI</a>
-      <a href="index.html#work">Our work</a>
-      <a href="index.html#process">Process</a>
-      <a class="btn sm" href="index.html#contact">Start a project</a>
+      <a href="index.html#studio">Studio</a>
+      <a href="index.html#contact">Contact</a>
     </nav>
   </div>
 </header>
