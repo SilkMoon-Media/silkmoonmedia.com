@@ -117,6 +117,8 @@ svg { max-width: 100%; }
 
 /* Sections */
 .sec { position: relative; scroll-margin-top: calc(var(--hh) + 8px); }
+main, main:focus, .sec:focus { outline: none; }
+main { scroll-margin-top: var(--hh); }
 .sec > .wrap { padding-block: 96px; }
 .sec-head { display: grid; gap: 14px; min-width: 0; }
 .sec-num { font: 500 12px/1.2 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
@@ -1646,6 +1648,48 @@ footer { border-top: 1px solid var(--line); }
 
   /* ---------- Look: always Cinematic ---------- */
   root.setAttribute("data-look", "cinematic");
+})();
+</script>
+<script>
+/* Start at the top of the page. A reload, or a return through history, opens at the top instead of
+   where the visitor last was, and a #section left in the address is cleared. A fresh visit to a
+   #section link (for example from the legal pages) still opens at that section.
+   In-page links scroll to their section without adding #section to the address. */
+(function () {
+  var clean = location.pathname + location.search;
+  function topNow() { try { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, 0); } }
+  try { if ("scrollRestoration" in history) history.scrollRestoration = "manual"; } catch (e) {}
+  var nav = null;
+  try { nav = performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null; } catch (e) {}
+  var revisit = false, textLink = false;
+  if (nav) { revisit = nav.type === "reload" || nav.type === "back_forward"; textLink = String(nav.name || "").indexOf(":~:") >= 0; }
+  else { try { revisit = performance.navigation.type === 1 || performance.navigation.type === 2; } catch (e) {} }
+  var touched = false;
+  ["wheel", "touchstart", "keydown", "pointerdown"].forEach(function (t) {
+    window.addEventListener(t, function () { touched = true; }, { passive: true, once: true });
+  });
+  if (!textLink && (!location.hash || revisit)) {
+    if (location.hash && history.replaceState) { try { history.replaceState(null, "", clean); } catch (e) {} }
+    topNow();
+    if (revisit) window.addEventListener("load", function () { if (!touched) topNow(); });
+  }
+  window.addEventListener("pageshow", function (e) { if (e.persisted) topNow(); });
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute("href").slice(1);
+    var target = id === "top" ? null : (id ? document.getElementById(id) : null);
+    if (id !== "top" && !target) return;
+    e.preventDefault();
+    if (history.replaceState && location.hash) { try { history.replaceState(null, "", clean); } catch (err) {} }
+    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!target) { try { window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" }); } catch (err) { window.scrollTo(0, 0); } return; }
+    target.scrollIntoView({ block: "start" });
+    /* Move keyboard focus with the scroll, so Tab continues from the section that was opened */
+    if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+    try { target.focus({ preventScroll: true }); } catch (err) { target.focus(); }
+  });
 })();
 </script>
 </body>
